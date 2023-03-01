@@ -19,5 +19,13 @@ namespace project_one
             .Trim();
       }
    }
+
+   public class Calculator
+   {
+      public int AddNumber(int x, int y)
+      {
+      return x + y;
+      }
+   }
 }
 
