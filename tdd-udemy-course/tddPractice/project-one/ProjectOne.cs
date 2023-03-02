@@ -24,7 +24,23 @@ namespace project_one
    {
       public int AddNumber(int x, int y)
       {
-      return x + y;
+         return x + y;
+      }
+   }
+
+   public class Fibonacci
+   {
+      public int GetFibonacci(int index)
+      {
+         if (index == 0)
+         {
+            return 0;
+         }
+         if (index == 1)
+         {
+            return 1;
+         }
+         return GetFibonacci(index - 1) + GetFibonacci(index - 2);
       }
    }
 }
