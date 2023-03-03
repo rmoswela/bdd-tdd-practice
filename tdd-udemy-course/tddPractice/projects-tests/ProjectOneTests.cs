@@ -43,3 +43,34 @@ public class FibonacciTests
       Assert.That(expected, Is.EqualTo(actual));
    }
 }
+
+/**
+ * If divisible by 3  -> return "Fizz"
+ * If divisible by 5  -> return "Buzz"
+ * If divisible by 3 and 5 -> return "FizzBuzz"
+ * Otherwise  -> return ""
+ */
+[TestFixture]
+public class FizzBuzzTests
+{
+   [Test]
+   [TestCase("Fizz", 3)]
+   [TestCase("Buzz", 5)]
+   [TestCase("Fizz", 6)]
+   [TestCase("Buzz", 10)]
+   [TestCase("", 11)]
+   [TestCase("FizzBuzz", 15)]
+   [TestCase("FizzBuzz", 30)]
+   [TestCase("", 8)]
+   public void TestFizzBuzz(string expectedPhrase, int value)
+   {
+      //Arrange
+      FizzBuzz fb = new FizzBuzz();
+
+      //Act
+      string actual = fb.GenerateFizzBuzz(value);
+
+      //Assert
+      Assert.That(actual, Is.EqualTo(expectedPhrase));
+   }
+}
