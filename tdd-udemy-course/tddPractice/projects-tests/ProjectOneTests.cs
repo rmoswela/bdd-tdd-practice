@@ -74,3 +74,39 @@ public class FizzBuzzTests
       Assert.That(actual, Is.EqualTo(expectedPhrase));
    }
 }
+
+/**
+ * Function that takes in roman numerals and returns a regular number
+ * Roman Symbols and their meaning
+ * I = 1, V= 5, X = 10, L = 50, C = 100, D = 500 M = 1000
+ * Subtractive notation: IV = 4, IX = 9
+ */
+[TestFixture]
+public class RomanNumeralsTranslationTests
+{
+   [Test]
+   [TestCase("I", 1)]
+   [TestCase("V", 5)]
+   [TestCase("II", 2)]
+   [TestCase("IV", 4)]
+   [TestCase("X", 10)]
+   [TestCase("IX", 9)]
+   [TestCase("XIX", 19)]
+   [TestCase("L", 50)]
+   [TestCase("C", 100)]
+   [TestCase("D", 500)]
+   [TestCase("M", 1000)]
+
+   public void TestRomanNumeralsTranslation(string romanNumeral, int expectedValue)
+   {
+      //Arrange
+      RomanNumeralTranslation roman = new RomanNumeralTranslation();
+
+      //Act
+      int value = roman.GetNormalNumber(romanNumeral);
+
+      //Assert
+      Assert.That(value, Is.EqualTo(expectedValue));
+   }
+
+}
