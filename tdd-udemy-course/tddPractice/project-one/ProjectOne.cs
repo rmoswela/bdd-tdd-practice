@@ -57,5 +57,41 @@ namespace project_one
          return "";
       }
    }
+
+   public class RomanNumeralTranslation
+   {
+      private Dictionary<char, int> romanNumMap = new Dictionary<char, int>()
+      {
+         {'I',1 },
+         {'V',5 },
+         {'X',10 },
+         {'L',50 },
+         {'C',100 },
+         {'D',500 },
+         {'M',1000 },
+      };
+
+      public int GetNormalNumber(string romanNumeral)
+      {
+         int result = 0;
+         for(int loop = 0; loop < romanNumeral.Length; loop++)
+         {
+            if (loop + 1 < romanNumeral.Length && isSubtractive(romanNumeral[loop], romanNumeral[loop + 1]))
+            {
+               result -= romanNumMap[romanNumeral[loop]];
+            }
+            else
+            {
+               result += romanNumMap[romanNumeral[loop]];
+            }
+         }
+         return result;
+      }
+
+      private bool isSubtractive(char x, char y)
+      {
+         return romanNumMap[x] < romanNumMap[y];
+      }
+   }
 }
 
