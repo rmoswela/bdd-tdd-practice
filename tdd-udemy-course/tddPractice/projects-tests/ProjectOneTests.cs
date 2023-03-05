@@ -1,5 +1,6 @@
 ﻿namespace projects_tests;
 using project_one;
+using System.Diagnostics;
 
 [TestFixture]
 public class CalculatorTests
@@ -110,3 +111,96 @@ public class RomanNumeralsTranslationTests
    }
 
 }
+
+/**
+ * Tdd testing with multi threads and concurrent access
+ * 
+ * 
+ */
+[TestFixture]
+public class UpdateableSpinTests
+{
+   [Test]
+   public void Wait_NoPulse_ReturnFalse()
+   {
+      //Arrange
+      UpdateableSpin spin = new UpdateableSpin();
+
+      //Act
+      bool wasPulsed = spin.Wait(TimeSpan.FromMilliseconds(10));
+
+      //Assert
+      Assert.IsFalse(wasPulsed);
+   }
+
+   [Test]
+   public void Wait_Pulse_ReturnTrue()
+   {
+      //Arrange
+      UpdateableSpin spin = new UpdateableSpin();
+
+      //Act
+      Task.Factory.StartNew(() =>
+      {
+         Thread.Sleep(100);
+         spin.Set();
+      });
+      bool wasPulsed = spin.Wait(TimeSpan.FromSeconds(10));
+
+      //Assert
+      Assert.IsTrue(wasPulsed);
+   }
+
+   [Test]
+   public void Wait50MilliSec_CallIsActuallyWaiting50MilliSec()
+   {
+      //Arrange
+      var spin = new UpdateableSpin();
+      Stopwatch watcher = new Stopwatch();
+
+      //Act
+      watcher.Start();
+      spin.Wait(TimeSpan.FromMilliseconds(50));
+      watcher.Stop();
+
+      TimeSpan actual = TimeSpan.FromMilliseconds(watcher.ElapsedMilliseconds);
+      TimeSpan leftEpsilon = TimeSpan.FromMilliseconds(50 - (50 * 0.1));
+      TimeSpan rightEpsilon = TimeSpan.FromMilliseconds(50 + (50 * 0.1));
+
+      //Assert
+      Assert.IsTrue(actual > leftEpsilon && actual < rightEpsilon);
+   }
+
+   [Test]
+   public void Wait50MilliSec_UpdateAfter30Millisec_TotalWaitingIsApprox800Millisec()
+   {
+      //Arrange
+      var spin = new UpdateableSpin();
+      var watcher = new Stopwatch();
+      const int timeout = 500;
+      const int spanBeforeUpdate = 300;
+
+      //Act
+      watcher.Start();
+
+      Task.Factory.StartNew(() =>
+      {
+         Thread.Sleep(spanBeforeUpdate);
+         spin.UpdateTimeout();
+      });
+
+      spin.Wait(TimeSpan.FromMilliseconds(timeout));
+
+      watcher.Stop();
+
+      TimeSpan actual = TimeSpan.FromMilliseconds(watcher.ElapsedMilliseconds);
+      const int expected = timeout + spanBeforeUpdate;
+
+      TimeSpan left = TimeSpan.FromMilliseconds(expected - (expected * 0.1));
+      TimeSpan right = TimeSpan.FromMilliseconds(expected + (expected * 0.1));
+
+      //Assert
+      Assert.IsTrue(actual > left && actual < right);
+   }
+}
+
