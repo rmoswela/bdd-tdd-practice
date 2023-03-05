@@ -93,5 +93,44 @@ namespace project_one
          return romanNumMap[x] < romanNumMap[y];
       }
    }
+
+   public class UpdateableSpin
+   {
+      private readonly object lockObj = new object();
+      private bool shouldWait = true;
+      private long executionStartingTime;
+
+      public bool Wait(TimeSpan timeOut, int spinDuration = 0)
+      {
+         UpdateTimeout();
+         while (true)
+         {
+            lock (lockObj)
+            {
+               if (!shouldWait)
+                  return true;
+               if (DateTime.UtcNow.Ticks - executionStartingTime > timeOut.Ticks)
+                  return false;
+            }
+            Thread.Sleep(spinDuration);
+         }
+      }
+
+      public void Set()
+      {
+         lock (lockObj)
+         {
+            shouldWait = false;
+         }
+      }
+
+      public void UpdateTimeout()
+      {
+         lock (lockObj)
+         {
+            executionStartingTime = DateTime.UtcNow.Ticks;
+         }
+      }
+   }
 }
 
