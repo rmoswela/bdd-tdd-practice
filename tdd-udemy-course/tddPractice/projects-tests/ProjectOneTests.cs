@@ -246,8 +246,8 @@ public class TicTacToeTests
    {
       Assert.Throws<InvalidOperationException>(() => {
          var game = new Game();
-         game.MakeMove(2);
-         game.MakeMove(2);
+         game.MakeMove(1);
+         game.MakeMove(1);
       });
    }
 }
