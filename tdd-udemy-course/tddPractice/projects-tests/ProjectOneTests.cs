@@ -240,16 +240,14 @@ public class TicTacToeTests
          game.MakeMove(index);
       });
    }
-}
 
-public class Game
-{
-   public int MovesCounter { get; private set; }
-
-   public void MakeMove(int index)
+   [Test]
+   public void MoveOnSameSquare_ThrowsException()
    {
-      if (MovesCounter == index)
-         throw new InvalidOperationException();
-      MovesCounter++;
+      Assert.Throws<InvalidOperationException>(() => {
+         var game = new Game();
+         game.MakeMove(2);
+         game.MakeMove(2);
+      });
    }
 }
