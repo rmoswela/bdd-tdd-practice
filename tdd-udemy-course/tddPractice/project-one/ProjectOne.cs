@@ -132,5 +132,17 @@ namespace project_one
          }
       }
    }
+
+   public class Game
+   {
+      public int MovesCounter { get; private set; }
+
+      public void MakeMove(int index)
+      {
+         if (MovesCounter == index)
+            throw new InvalidOperationException();
+         MovesCounter++;
+      }
+   }
 }
 
