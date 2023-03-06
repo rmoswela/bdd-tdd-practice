@@ -133,15 +133,42 @@ namespace project_one
       }
    }
 
+   enum State
+   {
+      Cross,
+      Zero,
+      Unset
+   }
+
    public class Game
    {
+      private readonly State[] _board = new State[9];
       public int MovesCounter { get; private set; }
+
+      public Game()
+      {
+         for (int index = 0; index < _board.Length; index++)
+         {
+            _board[index] = State.Unset;
+         }
+      }
 
       public void MakeMove(int index)
       {
-         if (MovesCounter == index)
+         if (index < 1 || index > 9)
+            throw new ArgumentOutOfRangeException();
+
+         if (GetState(index) != State.Unset)
             throw new InvalidOperationException();
+
+         _board[index - 1] = MovesCounter % 2 == 0 ? State.Cross : State.Zero;
+
          MovesCounter++;
+      }
+
+      private State GetState(int index)
+      {
+         return _board[index - 1];
       }
    }
 }
