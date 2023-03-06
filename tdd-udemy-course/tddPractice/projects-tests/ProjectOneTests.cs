@@ -113,7 +113,7 @@ public class RomanNumeralsTranslationTests
 }
 
 /**
- * Tdd testing with multi threads and concurrent access
+ * Tdd testing of multi threads and concurrent access
  * 
  * 
  */
@@ -204,3 +204,52 @@ public class UpdateableSpinTests
    }
 }
 
+/**
+ * -- Plan -- 
+ * Count moves
+ * Rule the state of squares
+ * Setting crosses and noughts
+ * determine the state of the game and whose the winner
+ * 
+ */
+[TestFixture]
+public class TicTacToeTests
+{
+   [Test]
+   public void CreateGame_With_ZeroMoves()
+   {
+      Game game = new Game();
+      Assert.That(game.MovesCounter, Is.EqualTo(0));
+   }
+
+   [Test]
+   public void MakeMove_CounterShifts()
+   {
+      var game = new Game();
+      game.MakeMove(1);
+
+      Assert.That(game.MovesCounter, Is.EqualTo(1));
+   }
+
+   [TestCase(0)]
+   [TestCase(10)]
+   public void MakeInvalidMove_ThrowsException(int index)
+   {
+      Assert.Throws<ArgumentOutOfRangeException>(() => {
+         var game = new Game();
+         game.MakeMove(index);
+      });
+   }
+}
+
+public class Game
+{
+   public int MovesCounter { get; private set; }
+
+   public void MakeMove(int index)
+   {
+      if (MovesCounter == index)
+         throw new InvalidOperationException();
+      MovesCounter++;
+   }
+}
