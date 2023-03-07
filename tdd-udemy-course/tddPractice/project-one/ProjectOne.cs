@@ -133,7 +133,7 @@ namespace project_one
       }
    }
 
-   enum State
+   public enum State
    {
       Cross,
       Zero,
@@ -166,7 +166,7 @@ namespace project_one
          MovesCounter++;
       }
 
-      private State GetState(int index)
+      public State GetState(int index)
       {
          return _board[index - 1];
       }
