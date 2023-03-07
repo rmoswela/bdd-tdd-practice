@@ -252,4 +252,22 @@ public class TicTacToeTests
          game.MakeMove(index);
       });
    }
+
+   [Test]
+   public void MakingMoves_SetStateCorrectly()
+   {
+      var game = new Game();
+
+      game.MakeMove(1);
+      game.MakeMove(6);
+      game.MakeMove(2);
+      game.MakeMove(5);
+      game.MakeMove(3);
+
+      Assert.That(game.GetState(1), Is.EqualTo(State.Cross));
+      Assert.That(game.GetState(6), Is.EqualTo(State.Zero));
+      Assert.That(game.GetState(2), Is.EqualTo(State.Cross));
+      Assert.That(game.GetState(5), Is.EqualTo(State.Zero));
+      Assert.That(game.GetState(3), Is.EqualTo(State.Cross));
+   }
 }
