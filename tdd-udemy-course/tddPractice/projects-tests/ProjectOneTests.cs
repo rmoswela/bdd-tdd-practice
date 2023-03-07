@@ -242,12 +242,14 @@ public class TicTacToeTests
    }
 
    [Test]
-   public void MoveOnSameSquare_ThrowsException()
+   [TestCase(3)]
+   [TestCase(7)]
+   public void MoveOnSameSquare_ThrowsException(int index)
    {
       Assert.Throws<InvalidOperationException>(() => {
          var game = new Game();
-         game.MakeMove(1);
-         game.MakeMove(1);
+         game.MakeMove(index);
+         game.MakeMove(index);
       });
    }
 }
