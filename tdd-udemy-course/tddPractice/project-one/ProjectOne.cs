@@ -140,6 +140,14 @@ namespace project_one
       Unset
    }
 
+   public enum Winner
+   {
+      Zeroes,
+      Crosses,
+      Draw,
+      GameIsUnfinished
+   }
+
    public class Game
    {
       private readonly State[] _board = new State[9];
@@ -169,6 +177,38 @@ namespace project_one
       public State GetState(int index)
       {
          return _board[index - 1];
+      }
+
+      public Winner GetWinner()
+      {
+         return DetermineWinner(
+            1, 4, 7, 2, 5, 8, 3, 6, 9,
+            1, 2, 3, 4, 5, 6, 7, 8, 9,
+            1, 5, 9, 3, 5, 7);
+      }
+
+      private Winner DetermineWinner(params int[] indexes)
+      {
+         for (int loop = 0; loop < indexes.Length; loop++)
+         {
+            bool areSame = StatesAreSame(
+               indexes[loop],
+               indexes[loop + 1],
+               indexes[loop + 2]
+               );
+            if (areSame)
+            {
+               State state = GetState(indexes[loop]);
+               if (state != State.Unset)
+                  return state == State.Cross ? Winner.Crosses : Winner.Zeroes;
+            }
+         }
+         return Winner.Draw;
+      }
+
+      private bool StatesAreSame(int a, int b, int c)
+      {
+         return GetState(a) == GetState(b) && GetState(a) == GetState(c);
       }
    }
 }
