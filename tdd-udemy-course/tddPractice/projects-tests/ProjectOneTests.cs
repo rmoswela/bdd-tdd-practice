@@ -280,4 +280,24 @@ public class TicTacToeTests
       Assert.That(game.GetState(5), Is.EqualTo(State.Zero));
       Assert.That(game.GetState(3), Is.EqualTo(State.Cross));
    }
+
+   [Test]
+   public void GetWinner_ZeroesWinVertically_ReturnsZeroes()
+   {
+      var game = new Game();
+
+      //2, 5, 8
+
+      MakeMoves(game, 1, 2, 3, 5, 7, 8);
+
+      Assert.That(game.GetWinner(), Is.EqualTo(Winner.Zeroes));
+   }
+
+   private void MakeMoves(Game game, params int[] indexes)
+   {
+      foreach (var index in indexes)
+      {
+         game.MakeMove(index);
+      }
+   }
 }
