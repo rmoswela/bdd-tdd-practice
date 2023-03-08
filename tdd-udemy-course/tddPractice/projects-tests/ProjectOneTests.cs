@@ -222,6 +222,16 @@ public class TicTacToeTests
       Assert.That(game.MovesCounter, Is.EqualTo(0));
    }
 
+   [TestCase(1, State.Unset)]
+   [TestCase(4, State.Unset)]
+   [TestCase(7, State.Unset)]
+   [TestCase(9, State.Unset)]
+   public void CheckInitialState_IsSetCorrectly(int index, State state)
+   {
+      var game = new Game();
+      Assert.That(state, Is.EqualTo(game.GetState(index)));
+   }
+
    [Test]
    public void MakeMove_CounterShifts()
    {
