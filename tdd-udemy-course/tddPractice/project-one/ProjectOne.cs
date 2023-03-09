@@ -189,7 +189,7 @@ namespace project_one
 
       private Winner DetermineWinner(params int[] indexes)
       {
-         for (int loop = 0; loop < indexes.Length; loop++)
+         for (int loop = 0; loop < indexes.Length; loop+=3)
          {
             bool areSame = StatesAreSame(
                indexes[loop],
@@ -203,6 +203,8 @@ namespace project_one
                   return state == State.Cross ? Winner.Crosses : Winner.Zeroes;
             }
          }
+         if (MovesCounter < 9)
+            return Winner.GameIsUnfinished;
          return Winner.Draw;
       }
 
