@@ -286,11 +286,23 @@ public class TicTacToeTests
    {
       var game = new Game();
 
-      //2, 5, 8
+      //2, 5, 8 zeroes win
 
       MakeMoves(game, 1, 2, 3, 5, 7, 8);
 
       Assert.That(game.GetWinner(), Is.EqualTo(Winner.Zeroes));
+   }
+
+   [Test]
+   public void GetWinner_CrossesWinDiagonally_ReturnsCrosses()
+   {
+      var game = new Game();
+
+      //1, 5, 9 crosses win
+
+      MakeMoves(game, 1, 4, 5, 2, 9);
+
+      Assert.That(game.GetWinner(), Is.EqualTo(Winner.Crosses));
    }
 
    private void MakeMoves(Game game, params int[] indexes)
