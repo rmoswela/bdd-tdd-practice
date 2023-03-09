@@ -305,6 +305,16 @@ public class TicTacToeTests
       Assert.That(game.GetWinner(), Is.EqualTo(Winner.Crosses));
    }
 
+   [Test]
+   public void GetWinner_GameIsUnfinished_ReturnsGameIsUnfinished()
+   {
+      var game = new Game();
+
+      MakeMoves(game, 1, 2, 4);
+
+      Assert.That(game.GetWinner(), Is.EqualTo(Winner.GameIsUnfinished));
+   }
+
    private void MakeMoves(Game game, params int[] indexes)
    {
       foreach (var index in indexes)
