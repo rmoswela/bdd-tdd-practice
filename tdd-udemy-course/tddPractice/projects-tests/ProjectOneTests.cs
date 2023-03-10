@@ -306,6 +306,17 @@ public class TicTacToeTests
    }
 
    [Test]
+   public void GetWinner_GameIsDrawn_ReturnsDraw()
+   {
+      var game = new Game();
+
+      //1, 5, 2, 3, 7, 4, 6, 8, 9 draw
+      MakeMoves(game, 1, 5, 2, 3, 7, 4, 6, 8, 9);
+
+      Assert.That(game.GetWinner(), Is.EqualTo(Winner.Draw));
+   }
+
+      [Test]
    public void GetWinner_GameIsUnfinished_ReturnsGameIsUnfinished()
    {
       var game = new Game();
