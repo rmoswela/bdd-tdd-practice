@@ -16,6 +16,16 @@ public class Game
       }
    }
 
+   public void HumanMakesMove(int sticksTaken)
+   {
+      if (sticksTaken < MinToTake || sticksTaken > MaxToTake)
+      {
+         throw new ArgumentException($"You should take one to three sticks. You took: {sticksTaken}");
+      }
+   }
 
+
+   public const int MinToTake = 1;
+   public const int MaxToTake = 3;
 }
 
