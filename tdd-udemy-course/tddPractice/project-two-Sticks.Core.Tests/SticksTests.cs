@@ -50,5 +50,39 @@ public class SticksTests
 
       Assert.Throws<InvalidOperationException>(() => game.HumanMakesMove(1));
    }
+
+   [Test]
+   [TestCase(1, 9)]
+   [TestCase(3, 7)]
+   [TestCase(2, 8)]
+   public void MachinePicksUp_ValidNumberOfSticks_GameRemainsInCorrectState(int sticksTaken, int stickRemaining)
+   {
+      var gen = new PredictableGenerator();
+      gen.SetNumber(sticksTaken);
+      int taken = 0;
+
+      var game = new Game(10, Player.Machine, gen);
+      game.MachineMoved += (s, args) => taken = args.SticksTaken;
+      game = game.MachineMakesMove();
+
+      Assert.That(game.NumberOfSticks, Is.EqualTo(stickRemaining));
+      Assert.That(sticksTaken, Is.EqualTo(taken));
+      Assert.That(game.Turn, Is.EqualTo(Player.Human));
+   }
+}
+
+public class PredictableGenerator : ICanGenerateNumbers
+{
+   private int _number;
+
+   public int Next(int min, int max)
+   {
+      return _number;
+   }
+
+   public void SetNumber(int num)
+   {
+      _number = num;
+   }
 }
 
