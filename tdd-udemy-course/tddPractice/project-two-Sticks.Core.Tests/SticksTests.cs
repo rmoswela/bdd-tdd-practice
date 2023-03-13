@@ -29,5 +29,18 @@ public class SticksTests
       var game = new Game(10, Player.Human);
       Assert.Throws<ArgumentException>(() => game.HumanMakesMove(sticksTaken));
    }
+
+   [Test]
+   [TestCase(1, 9)]
+   [TestCase(3, 7)]
+   [TestCase(2, 8)]
+   public void HumanPicksUp_ValidNumberOfSticks_GameRemainsInCorrectState(int sticksTaken, int stickRemaining)
+   {
+      var game = new Game(10, Player.Human);
+      game = game.HumanMakesMove(sticksTaken);
+
+      Assert.That(game.NumberOfSticks, Is.EqualTo(stickRemaining));
+      Assert.That(game.Turn, Is.EqualTo(Player.Machine));
+   }
 }
 
