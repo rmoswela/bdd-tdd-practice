@@ -42,5 +42,13 @@ public class SticksTests
       Assert.That(game.NumberOfSticks, Is.EqualTo(stickRemaining));
       Assert.That(game.Turn, Is.EqualTo(Player.Machine));
    }
+
+   [Test]
+   public void HumanMakesMove_WhenItsTheComputerTurn_ThrowInvalidOperationException()
+   {
+      var game = new Game(10, Player.Machine);
+
+      Assert.Throws<InvalidOperationException>(() => game.HumanMakesMove(1));
+   }
 }
 
