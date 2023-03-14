@@ -58,6 +58,11 @@ public class Game
       return new Game(Revert(Turn), stickRemains, _generator, MachineMoved);
    }
 
+   public bool IsGameOver()
+   {
+      return NumberOfSticks <= 0;
+   }
+
    private Player Revert(Player p)
    {
       return p == Player.Machine ? Player.Human : Player.Machine;
