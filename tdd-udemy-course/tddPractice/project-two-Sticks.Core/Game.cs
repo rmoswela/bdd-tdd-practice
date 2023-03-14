@@ -11,6 +11,9 @@ public class Game
 
    public Game(int numberOfSticks, Player turn, ICanGenerateNumbers generateNumbers)
    {
+      if (generateNumbers == null)
+         throw new ArgumentNullException(nameof(generateNumbers));
+
       if (numberOfSticks < 10)
       {
          throw new ArgumentException($"Number of sticks has to be >=10. You passed: {numberOfSticks}");
