@@ -69,6 +69,12 @@ public class SticksTests
       Assert.That(sticksTaken, Is.EqualTo(taken));
       Assert.That(game.Turn, Is.EqualTo(Player.Human));
    }
+
+   [Test]
+   public void Constructor_WithNullGenerator_ThrowsArgumentNullException()
+   {
+      Assert.Throws<ArgumentNullException>(() => new Game(10, Player.Machine, null));
+   }
 }
 
 public class PredictableGenerator : ICanGenerateNumbers
