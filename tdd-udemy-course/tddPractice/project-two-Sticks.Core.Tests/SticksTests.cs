@@ -75,6 +75,35 @@ public class SticksTests
    {
       Assert.Throws<ArgumentNullException>(() => new Game(10, Player.Machine, null));
    }
+
+   [Test]
+   [TestCase(1, false)]
+   [TestCase(2, true)]
+   public void IsGameOver_WhenSticksAreFinished_ReturnsCorrectResults(int takewhenTwosticksInGame, bool isOver)
+   {
+      var game = GameRemainingWith2StickAndItsHumanTurn();
+
+      game = game.HumanMakesMove(takewhenTwosticksInGame);
+      bool result = game.IsGameOver();
+
+      Assert.That(result, Is.EqualTo(isOver));
+   }
+
+
+
+   private static Game GameRemainingWith2StickAndItsHumanTurn()
+   {
+      var gen = new PredictableGenerator();
+      gen.SetNumber(Game.MinToTake);
+
+      var game = new Game(10, Player.Human, gen);
+      game = game.HumanMakesMove(Game.MaxToTake); //7
+      game = game.MachineMakesMove(); //6
+      game = game.HumanMakesMove(Game.MaxToTake); //3
+      game = game.MachineMakesMove(); //2
+
+      return game;
+   }
 }
 
 public class PredictableGenerator : ICanGenerateNumbers
