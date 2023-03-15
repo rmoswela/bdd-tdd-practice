@@ -89,7 +89,12 @@ public class SticksTests
       Assert.That(result, Is.EqualTo(isOver));
    }
 
-
+   [Test]
+   public void HumanMakesMove_TakeMoreSticksThanInTheGame_ThrowsArgumentException()
+   {
+      var game = GameRemainingWith2StickAndItsHumanTurn();
+      Assert.Throws<ArgumentException>(() => game.HumanMakesMove(Game.MaxToTake));
+   }
 
    private static Game GameRemainingWith2StickAndItsHumanTurn()
    {
