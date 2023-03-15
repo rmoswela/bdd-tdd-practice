@@ -39,11 +39,18 @@ public class Game
    public Game HumanMakesMove(int sticksTaken)
    {
       if (Turn == Player.Machine)
+      {
          throw new InvalidOperationException("Its the machine's turn to make a move!");
+      }
 
       if (sticksTaken < MinToTake || sticksTaken > MaxToTake)
       {
          throw new ArgumentException($"You should take one to three sticks. You took: {sticksTaken}");
+      }
+
+      if (sticksTaken > NumberOfSticks)
+      {
+         throw new ArgumentException($"You took more sticks than ones remaining in the game!");
       }
 
       return new Game(Revert(Turn), NumberOfSticks - sticksTaken, _generator, MachineMoved);
