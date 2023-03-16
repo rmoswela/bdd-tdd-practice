@@ -40,7 +40,7 @@ public class Game
    {
       if (Turn == Player.Machine)
       {
-         throw new InvalidOperationException("Its the machine's turn to make a move!");
+         throw new InvalidOperationException("Its the Machine's turn to make a move!");
       }
 
       if (sticksTaken < MinToTake || sticksTaken > MaxToTake)
@@ -58,6 +58,11 @@ public class Game
 
    public Game MachineMakesMove()
    {
+      if (Turn == Player.Human)
+      {
+         throw new InvalidOperationException("Its the Human's turn to make a move!");
+      }
+
       int stickTaken = _generator.Next(MinToTake, MaxToTake);
       int stickRemains = NumberOfSticks - stickTaken;
       MachineMoved?.Invoke(this, new Move(stickTaken, stickRemains));
