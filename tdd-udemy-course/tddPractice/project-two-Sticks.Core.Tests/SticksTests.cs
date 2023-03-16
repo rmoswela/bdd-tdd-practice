@@ -104,6 +104,20 @@ public class SticksTests
       Assert.Throws<InvalidOperationException>(() => game.MachineMakesMove());
    }
 
+   [Test]
+   public void HumanMakesMove_TakesTheLast2Sticks_HumanLoses()
+   {
+      var winner = Player.Human;
+
+      var game = GameRemainingWith2StickAndItsHumanTurn();
+      game.GameOver += (sender, player) => winner = player;
+
+      game = game.HumanMakesMove(2);
+
+      Assert.That(game.IsGameOver, Is.EqualTo(true));
+      Assert.That(winner, Is.EqualTo(Player.Machine));
+   }
+
    private static Game GameRemainingWith2StickAndItsHumanTurn()
    {
       var gen = new PredictableGenerator();
