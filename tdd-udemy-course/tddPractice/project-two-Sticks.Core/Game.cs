@@ -28,12 +28,13 @@ public class Game
    /// </summary>
    /// <param name="turn"></param>
    /// <param name="numberOfSticks"></param>
-   private Game(Player turn, int numberOfSticks, ICanGenerateNumbers generateNumbers, EventHandler<Move> machineMoved)
+   private Game(Player turn, int numberOfSticks, ICanGenerateNumbers generateNumbers, EventHandler<Move> machineMoved, EventHandler<Player> gameOver)
    {
       NumberOfSticks = numberOfSticks;
       Turn = turn;
       _generator = generateNumbers;
       MachineMoved = machineMoved;
+      GameOver = gameOver;
    }
 
    public Game HumanMakesMove(int sticksTaken)
@@ -53,7 +54,13 @@ public class Game
          throw new ArgumentException($"You took more sticks than ones remaining in the game!");
       }
 
-      return new Game(Revert(Turn), NumberOfSticks - sticksTaken, _generator, MachineMoved);
+      int numOfSticks = NumberOfSticks - sticksTaken;
+      if (IsGameOver(numOfSticks))
+      {
+         GameOver?.Invoke(this, Revert(Turn));
+      }
+
+      return new Game(Revert(Turn), NumberOfSticks - sticksTaken, _generator, MachineMoved, GameOver);
    }
 
    public Game MachineMakesMove()
@@ -67,12 +74,17 @@ public class Game
       int stickRemains = NumberOfSticks - stickTaken;
       MachineMoved?.Invoke(this, new Move(stickTaken, stickRemains));
 
-      return new Game(Revert(Turn), stickRemains, _generator, MachineMoved);
+      return new Game(Revert(Turn), stickRemains, _generator, MachineMoved, GameOver);
    }
 
    public bool IsGameOver()
    {
-      return NumberOfSticks <= 0;
+      return IsGameOver(NumberOfSticks);
+   }
+
+   private bool IsGameOver(int numOfSticks)
+   {
+      return numOfSticks <= 0;
    }
 
    private Player Revert(Player p)
@@ -84,6 +96,7 @@ public class Game
    public const int MinToTake = 1;
    public const int MaxToTake = 3;
    public event EventHandler<Move> MachineMoved;
+   public event EventHandler<Player> GameOver;
 }
 
 
