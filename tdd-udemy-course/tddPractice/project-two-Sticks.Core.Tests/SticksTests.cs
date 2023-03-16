@@ -96,6 +96,14 @@ public class SticksTests
       Assert.Throws<ArgumentException>(() => game.HumanMakesMove(Game.MaxToTake));
    }
 
+   [Test]
+   public void MachineMakesMove_WhenItsTheHumanTurn_ThrowInvalidOperationException()
+   {
+      var game = new Game(10, Player.Human);
+
+      Assert.Throws<InvalidOperationException>(() => game.MachineMakesMove());
+   }
+
    private static Game GameRemainingWith2StickAndItsHumanTurn()
    {
       var gen = new PredictableGenerator();
