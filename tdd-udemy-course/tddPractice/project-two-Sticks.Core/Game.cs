@@ -70,9 +70,15 @@ public class Game
          throw new InvalidOperationException("Its the Human's turn to make a move!");
       }
 
-      int stickTaken = _generator.Next(MinToTake, MaxToTake);
-      int stickRemains = NumberOfSticks - stickTaken;
-      MachineMoved?.Invoke(this, new Move(stickTaken, stickRemains));
+      int sticksTaken = _generator.Next(MinToTake, MaxToTake);
+      int stickRemains = NumberOfSticks - sticksTaken;
+      MachineMoved?.Invoke(this, new Move(sticksTaken, stickRemains));
+
+      int numOfSticks = NumberOfSticks - sticksTaken;
+      if (IsGameOver(numOfSticks))
+      {
+         GameOver?.Invoke(this, Revert(Turn));
+      }
 
       return new Game(Revert(Turn), stickRemains, _generator, MachineMoved, GameOver);
    }
