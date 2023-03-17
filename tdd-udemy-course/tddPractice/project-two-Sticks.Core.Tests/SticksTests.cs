@@ -118,6 +118,34 @@ public class SticksTests
       Assert.That(winner, Is.EqualTo(Player.Machine));
    }
 
+   [Test]
+   public void MachineMakesMove_TakesTheLast3Sticks_MachineLoses()
+   {
+      var winner = Player.Machine;
+
+      var game = GameRemainingWith3SticksAndItsMachineTurn();
+      game.GameOver += (sender, player) => winner = player;
+
+      game = game.MachineMakesMove();
+
+      Assert.That(game.IsGameOver, Is.EqualTo(true));
+      Assert.That(winner, Is.EqualTo(Player.Human));
+   }
+
+   private static Game GameRemainingWith3SticksAndItsMachineTurn()
+   {
+      var gen = new PredictableGenerator();
+      gen.SetNumber(Game.MaxToTake);
+
+      var game = new Game(11, Player.Machine, gen);
+      game = game.MachineMakesMove(); //8
+      game = game.HumanMakesMove(Game.MinToTake); //7
+      game = game.MachineMakesMove(); //4
+      game = game.HumanMakesMove(Game.MinToTake); //2
+
+      return game;
+   }
+
    private static Game GameRemainingWith2StickAndItsHumanTurn()
    {
       var gen = new PredictableGenerator();
