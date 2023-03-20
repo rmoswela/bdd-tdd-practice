@@ -23,6 +23,14 @@ public class StackTests
 
       Assert.That(1, Is.EqualTo(stack.Count));
    }
+
+   [Test]
+   public void Pop_EmptyStack_ThrowsException()
+   {
+      var stack = new MyStack<int>();
+
+      Assert.Throws<InvalidOperationException>(() => { stack.Pop(); });
+   }
 }
 
 public class MyStack<T>
@@ -34,5 +42,11 @@ public class MyStack<T>
    public void Push(T value)
    {
       Count++;
+   }
+
+   public void Pop()
+   {
+      if (IsEmpty)
+         throw new InvalidOperationException();
    }
 }
