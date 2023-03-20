@@ -3,7 +3,7 @@
 public class StackTests
 {
    [Test]
-   public void IsStackEmpty_EmptyStack_ReturnsTrue()
+   public void IsStackEmpty_AfterInstantiationOfAStack_ReturnsTrue()
    {
       //Arrange
       var myStack = new MyStack<int>();
@@ -14,7 +14,7 @@ public class StackTests
    }
 
    [Test]
-   public void Count_PushOneItem_ReturnsOne()
+   public void Count_AfterPushingOneItem_ReturnsOne()
    {
       var stack = new MyStack<int>();
       int value = 35;
@@ -25,7 +25,7 @@ public class StackTests
    }
 
    [Test]
-   public void Pop_EmptyStack_ThrowsException()
+   public void Pop_WhenStackIsEmpty_ThrowsException()
    {
       var stack = new MyStack<int>();
 
