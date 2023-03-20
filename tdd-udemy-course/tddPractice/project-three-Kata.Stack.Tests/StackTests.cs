@@ -45,6 +45,21 @@ public class StackTests
 
       Assert.That(100, Is.EqualTo(headValue));
    }
+
+   [Test]
+   public void Peek_AfterPushingThreeItemsAndPoppingOne_ReturnsHeadItem()
+   {
+      var stack = new MyStack<string>();
+
+      stack.Push("Reuben");
+      stack.Push("Lame");
+      stack.Push("Moswela");
+      stack.Pop();
+
+      string headValue = stack.Peek();
+
+      Assert.That("Lame", Is.EqualTo(headValue));
+   }
 }
 
 public class MyStack<T>
@@ -63,7 +78,10 @@ public class MyStack<T>
    public void Pop()
    {
       if (IsEmpty)
+      {
          throw new InvalidOperationException();
+      }
+      _stackList.RemoveAt(Count - 1);
    }
 
    public T Peek()
