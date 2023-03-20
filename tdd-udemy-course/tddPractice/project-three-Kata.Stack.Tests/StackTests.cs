@@ -31,22 +31,43 @@ public class StackTests
 
       Assert.Throws<InvalidOperationException>(() => { stack.Pop(); });
    }
+
+   [Test]
+   public void Peek_AfterPushingThreeItems_ReturnsHeadItem()
+   {
+      var stack = new MyStack<int>();
+
+      stack.Push(10);
+      stack.Push(40);
+      stack.Push(100);
+
+      int headValue = stack.Peek();
+
+      Assert.That(100, Is.EqualTo(headValue));
+   }
 }
 
 public class MyStack<T>
 {
+   private List<T> _stackList = new List<T>();
+   
    public bool IsEmpty => Count == 0;
 
-   public int Count { get; private set; }
+   public int Count => _stackList.Count;
 
    public void Push(T value)
    {
-      Count++;
+      _stackList.Add(value);
    }
 
    public void Pop()
    {
       if (IsEmpty)
          throw new InvalidOperationException();
+   }
+
+   public T Peek()
+   {
+      return _stackList[Count - 1];
    }
 }
