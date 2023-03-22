@@ -6,7 +6,7 @@
       {
          public IStack<T> Push(T value)
          {
-            throw new NotImplementedException();
+            return new ImmutableStack<T>(value);
          }
 
          public IStack<T> Pop()
@@ -22,9 +22,14 @@
          public bool IsEmpty => true;
       }
 
+      private ImmutableStack(T head)
+      {
+         _head = head;
+      }
+
       public IStack<T> Push(T value)
       {
-         throw new NotImplementedException();
+         return new ImmutableStack<T>(value);
       }
 
       public IStack<T> Pop()
@@ -34,12 +39,13 @@
 
       public T Peek()
       {
-         throw new NotImplementedException();
+         return _head;
       }
 
       public bool IsEmpty { get; }
 
       private static readonly EmptyStack _empty = new EmptyStack();
+      private readonly T _head;
       public static IStack<T> Empty => _empty;
    }
 }

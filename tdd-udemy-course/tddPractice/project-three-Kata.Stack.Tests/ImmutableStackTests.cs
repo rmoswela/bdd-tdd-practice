@@ -31,6 +31,18 @@ namespace project_three_Kata.Stack.Tests
             emptyStack.Pop();
          });
       }
+
+      [Test]
+      public void PushOnEmptyStackTwoItems_PeekOneElement_ReturnsCorrectValue()
+      {
+         var stack = ImmutableStack<int>.Empty;
+         stack = stack.Push(15);
+         stack = stack.Push(30);
+
+         int result = stack.Peek();
+
+         Assert.That(30, Is.EqualTo(result));
+      }
    }
 }
 
