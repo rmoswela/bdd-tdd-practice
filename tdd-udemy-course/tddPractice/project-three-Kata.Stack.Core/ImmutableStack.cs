@@ -11,12 +11,12 @@
 
          public IStack<T> Pop()
          {
-            throw new NotImplementedException();
+            throw new InvalidOperationException();
          }
 
          public T Peek()
          {
-            throw new NotImplementedException();
+            throw new InvalidOperationException();
          }
 
          public bool IsEmpty => true;

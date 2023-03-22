@@ -14,6 +14,23 @@ namespace project_three_Kata.Stack.Tests
          //Assert
          Assert.That(isEmpty, Is.True);
       }
+
+      [Test]
+      public void PeekAndPop_EmptyStack_ThrowsException()
+      {
+         //Arrange
+         var emptyStack = ImmutableStack<int>.Empty;
+
+         //Assert
+         Assert.Throws<InvalidOperationException>(() =>
+         {
+            emptyStack.Peek();
+         });
+         Assert.Throws<InvalidOperationException>(() =>
+         {
+            emptyStack.Pop();
+         });
+      }
    }
 }
 
