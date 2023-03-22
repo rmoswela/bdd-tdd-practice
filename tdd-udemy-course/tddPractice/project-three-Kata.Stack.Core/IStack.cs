@@ -1,5 +1,4 @@
-﻿using System;
-namespace project_three_Kata.Stack.Core
+﻿namespace project_three_Kata.Stack.Core
 {
    public interface IStack<T>
    {
