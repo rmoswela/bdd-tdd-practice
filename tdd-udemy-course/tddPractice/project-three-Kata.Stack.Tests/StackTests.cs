@@ -1,4 +1,6 @@
-﻿namespace project_three_Kata.Tests;
+﻿using project_three_Kata.Core;
+
+namespace project_three_Kata.Tests;
 
 public class StackTests
 {
