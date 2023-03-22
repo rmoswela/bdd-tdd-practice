@@ -1,5 +1,4 @@
-﻿using System;
-namespace project_three_Kata.Stack.Core
+﻿namespace project_three_Kata.Stack.Core
 {
    public class ImmutableStack<T> : IStack<T>
    {
@@ -20,7 +19,7 @@ namespace project_three_Kata.Stack.Core
             throw new NotImplementedException();
          }
 
-         public bool IsEmpty { get; }
+         public bool IsEmpty => true;
       }
 
       public IStack<T> Push(T value)
@@ -39,6 +38,9 @@ namespace project_three_Kata.Stack.Core
       }
 
       public bool IsEmpty { get; }
+
+      private static readonly EmptyStack _empty = new EmptyStack();
+      public static IStack<T> Empty => _empty;
    }
 }
 
