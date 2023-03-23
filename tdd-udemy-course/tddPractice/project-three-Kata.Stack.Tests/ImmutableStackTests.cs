@@ -33,7 +33,7 @@ namespace project_three_Kata.Stack.Tests
       }
 
       [Test]
-      public void PushOnEmptyStackTwoItems_PeekOneElement_ReturnsCorrectValue()
+      public void PushOnEmptyStackTwoItems_PeekOneItem_ReturnsCorrectValue()
       {
          var stack = ImmutableStack<int>.Empty;
          stack = stack.Push(15);
@@ -42,6 +42,19 @@ namespace project_three_Kata.Stack.Tests
          int result = stack.Peek();
 
          Assert.That(30, Is.EqualTo(result));
+      }
+
+      [Test]
+      public void PushOnEmptyStackOneItem_PopOneItem_ReturnsEmptyStack()
+      {
+         var stack = ImmutableStack<int>.Empty;
+
+         stack = stack.Push(45);
+         var result = stack.Pop();
+
+         bool isEmpty = result.IsEmpty;
+
+         Assert.That(isEmpty, Is.True);
       }
    }
 }
