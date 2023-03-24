@@ -19,14 +19,27 @@ namespace project_three_Kata.Tests
          MyLinkedList<int> list = new MyLinkedList<int>();
          list.AddFirst(30);
 
-         Assert.That(30, Is.EqualTo(list.Head.Value));
-         Assert.That(30, Is.EqualTo(list.Tail.Value));
          Assert.That(list.Head, Is.SameAs(list.Tail));
+      }
+
+      [Test]
+      public void AddTwoElements_ListIsCorrectState()
+      {
+         var list = new MyLinkedList<int>();
+
+         list.AddFirst(1001);
+         list.AddFirst(2001);
+
+         Assert.That(2001, Is.EqualTo(list.Head.Value));
+         Assert.That(1001, Is.EqualTo(list.Tail.Value));
+         Assert.That(2, Is.EqualTo(list.Count));
+         Assert.That(list.Head.Next, Is.SameAs(list.Tail));
       }
    }
 
    public class MyLinkedList<T>
    {
+      public int Count { get; set; }
       public ListNode<T> Head { get; set; }
       public ListNode<T> Tail { get; set; }
 
@@ -37,7 +50,18 @@ namespace project_three_Kata.Tests
 
       private void AddFirst(ListNode<T> node)
       {
-         Tail = Head = node;
+         //save head node so we don't lose it
+         ListNode<T> temp = Head;
+         //point head to new node
+         Head = node;
+         //insert the rest of the list behind head
+         Head.Next = temp;
+         Count++;
+
+         if (Count == 1)
+         {
+            Tail = Head;
+         }
       }
    }
 
