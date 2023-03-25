@@ -71,6 +71,19 @@ namespace project_three_Kata.Tests
             list.RemoveFirst();
          });
       }
+
+      [Test]
+      public void RemoveFirst_OneElement_ListInCorrectState()
+      {
+         var list = new MyLinkedList<int>();
+
+         list.AddFirst(9009);
+         list.RemoveFirst();
+
+         Assert.That(list.Head, Is.Null);
+         Assert.That(list.Tail, Is.Null);
+         Assert.That(0, Is.EqualTo(list.Count));
+      }
    }
 
    public class MyLinkedList<T>
@@ -95,6 +108,11 @@ namespace project_three_Kata.Tests
          {
             throw new InvalidOperationException();
          }
+
+         Head = Head.Next;
+         Count--;
+         if (Count == 0)
+            Tail = null; 
       }
 
       private void AddFirst(ListNode<T> node)
