@@ -35,6 +35,17 @@ namespace project_three_Kata.Tests
          Assert.That(2, Is.EqualTo(list.Count));
          Assert.That(list.Head.Next, Is.SameAs(list.Tail));
       }
+
+      [Test]
+      public void AddLast_CheckIfHeadAndTailAreSame_AreEqual()
+      {
+         var list = new MyLinkedList<int>();
+         list.AddLast(45);
+
+         Assert.That(45, Is.EqualTo(list.Head.Value));
+         Assert.That(45, Is.EqualTo(list.Tail.Value));
+         Assert.That(list.Head, Is.SameAs(list.Tail));
+      }
    }
 
    public class MyLinkedList<T>
@@ -46,6 +57,11 @@ namespace project_three_Kata.Tests
       public void AddFirst(T value)
       {
          AddFirst(new ListNode<T> (value));
+      }
+
+      public void AddLast(T value)
+      {
+         AddLast(new ListNode<T>(value));
       }
 
       private void AddFirst(ListNode<T> node)
@@ -62,6 +78,11 @@ namespace project_three_Kata.Tests
          {
             Tail = Head;
          }
+      }
+
+      private void AddLast(ListNode<T> node)
+      {
+         Head = Tail = node;
       }
    }
 
