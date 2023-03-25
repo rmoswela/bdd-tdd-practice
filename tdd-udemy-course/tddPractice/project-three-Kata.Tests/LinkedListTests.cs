@@ -84,6 +84,17 @@ namespace project_three_Kata.Tests
          Assert.That(list.Tail, Is.Null);
          Assert.That(0, Is.EqualTo(list.Count));
       }
+
+      [Test]
+      public void RemoveLast_OnEmptylist_ThrowsException()
+      {
+         var list = new MyLinkedList<int>();
+
+         Assert.Throws<InvalidOperationException>(() =>
+         {
+            list.RemoveLast();
+         });
+      }
    }
 
    public class MyLinkedList<T>
@@ -113,6 +124,14 @@ namespace project_three_Kata.Tests
          Count--;
          if (Count == 0)
             Tail = null; 
+      }
+
+      public void RemoveLast()
+      {
+         if (Count == 0)
+         {
+            throw new InvalidOperationException();
+         }
       }
 
       private void AddFirst(ListNode<T> node)
