@@ -46,6 +46,20 @@ namespace project_three_Kata.Tests
          Assert.That(45, Is.EqualTo(list.Tail.Value));
          Assert.That(list.Head, Is.SameAs(list.Tail));
       }
+
+      [Test]
+      public void AddLastTwoElements_ListIsCorrectState()
+      {
+         var list = new MyLinkedList<int>();
+
+         list.AddLast(5005);
+         list.AddLast(6006);
+
+         Assert.That(5005, Is.EqualTo(list.Head.Value));
+         Assert.That(6006, Is.EqualTo(list.Tail.Value));
+         Assert.That(2, Is.EqualTo(list.Count));
+         Assert.That(list.Head.Next, Is.SameAs(list.Tail));
+      }
    }
 
    public class MyLinkedList<T>
@@ -82,7 +96,16 @@ namespace project_three_Kata.Tests
 
       private void AddLast(ListNode<T> node)
       {
-         Head = Tail = node;
+         if (Count == 0)
+         {
+            Head = node;
+         }
+         else
+         {
+            Tail.Next = node;
+         }
+         Tail = node;
+         Count++;
       }
    }
 
