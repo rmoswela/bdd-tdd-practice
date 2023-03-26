@@ -108,6 +108,20 @@ namespace project_three_Kata.Tests
          Assert.That(list.Tail, Is.Null);
          Assert.That(0, Is.EqualTo(list.Count));
       }
+
+      [Test]
+      public void RemoveLast_WhenThereAreTwoElements_ListInCorrectState()
+      {
+         var list = new MyLinkedList<int>();
+
+         list.AddLast(4004);
+         list.AddLast(3003);
+         list.RemoveLast();
+
+         Assert.That(4004, Is.EqualTo(list.Head.Value));
+         Assert.That(1, Is.EqualTo(list.Count));
+         Assert.That(list.Head, Is.SameAs(list.Tail));
+      }
    }
 
    public class MyLinkedList<T>
@@ -146,8 +160,26 @@ namespace project_three_Kata.Tests
             throw new InvalidOperationException();
          }
 
-         Head = null;
-         Tail = null;
+         if (Count == 1)
+         {
+            Head = null;
+            Tail = null;
+         }
+         else
+         {
+            //Before: Head = 5-->10-->15-->null
+            //        Tail = 15
+            //After: Head = 5-->10-->null
+            //        Tail = 10
+            ListNode<T> current = Head;
+            while (current.Next != Tail)
+            {
+               current = current.Next;
+            }
+
+            current.Next = null;
+            Tail = current;
+         }
          Count--;
       }
 
