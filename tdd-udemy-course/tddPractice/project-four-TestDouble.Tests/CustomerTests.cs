@@ -21,4 +21,20 @@ public class CustomerTests
       //Assert
       Assert.That(actual, Is.EqualTo(expectedWage).Within(0.1));
    }
+
+   [Test]
+   public void CalculateWage_PassesCorrectEmployeeId()
+   {
+      //Arrange
+      const int employeeId = 1;
+      var gateway = new DbGatewaySpy();
+      gateway.SetEmployeeStats(new EmployeeStats() { PayHourly = true, HourSalary = 100, WorkingHours = 10 });
+      var cust = new Customer(gateway, new LoggerDummy());
+
+      //Act
+      cust.CalculateWage(employeeId);
+
+      //Assert
+      Assert.That(employeeId, Is.EqualTo(gateway.EmployeeId));
+   }
 }
