@@ -53,4 +53,21 @@ public class CustomerTests
       //Assert
       Assert.IsTrue(gateway.VerifyCalledWithProperId(employeeId));
    }
+
+   [Test]
+   public void CalculateWage_MonthlyPayed_ReturnsCorrectWageFromFakeDB()
+   {
+      //Arrange
+      const int employeeId = 2;
+      var gateway = new DbGatewayFake();
+
+      var cust = new Customer(gateway, new LoggerDummy());
+      const decimal expectedWage = 500;
+
+      //Act
+      var actual = cust.CalculateWage(employeeId);
+
+      //Assert
+      Assert.That(actual, Is.EqualTo(expectedWage));
+   }
 }
