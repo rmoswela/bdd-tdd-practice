@@ -23,7 +23,7 @@ public class CustomerTests
    }
 
    [Test]
-   public void CalculateWage_PassesCorrectEmployeeId()
+   public void CalculateWage_CheckIfTheGetEmployeeStatsMethodIsCalled_ReturnCorrectEmployeeIdSetInTheMethod()
    {
       //Arrange
       const int employeeId = 1;
