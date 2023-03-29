@@ -37,4 +37,20 @@ public class CustomerTests
       //Assert
       Assert.That(employeeId, Is.EqualTo(gateway.EmployeeId));
    }
+
+   [Test]
+   public void CalculateWage_PassesCorrectEmployeeId()
+   {
+      //Arrange
+      const int employeeId = 1;
+      var gateway = new DbGatewayMock();
+      gateway.SetEmployeeStats(new EmployeeStats());
+      var cust = new Customer(gateway, new LoggerDummy());
+
+      //Act
+      cust.CalculateWage(employeeId);
+
+      //Assert
+      Assert.IsTrue(gateway.VerifyCalledWithProperId(employeeId));
+   }
 }
