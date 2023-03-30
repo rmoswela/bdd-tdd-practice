@@ -25,6 +25,8 @@ namespace project_four_TestDouble.Tests
       {
          return EmployeeId == employeeId;
       }
+
+      public bool Connected { get; }
    }
 }
 

@@ -1,9 +1,10 @@
 ﻿using System;
 namespace project_four_TestDouble.Core
 {
-  public interface IDbGateway
-  {
+   public interface IDbGateway
+   {
       EmployeeStats GetEmployeeStats(int userId);
-  }
+      bool Connected { get; }
+   }
 }
 

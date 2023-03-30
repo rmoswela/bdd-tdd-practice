@@ -17,6 +17,8 @@ namespace project_four_TestDouble.Tests
       {
          return _fakeDatabase[employeeId];
       }
-  }
+
+      public bool Connected { get; }
+   }
 }
 

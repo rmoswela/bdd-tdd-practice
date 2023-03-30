@@ -1,6 +1,31 @@
-﻿using project_four_TestDouble.Core;
+﻿using NSubstitute;
+using project_four_TestDouble.Core;
 
 namespace project_four_TestDouble.Tests;
+
+[TestFixture]
+public class CustomerTestsWithMockingFramework
+{
+   [Test]
+   public void CalculateWage_HourlyPayed_ReturnsCorrectWage()
+   {
+      //Arrange
+      const decimal expectedWage = 100 * 10;
+      var gateway = Substitute.For<IDbGateway>();
+
+      var employeeStats = new EmployeeStats() { PayHourly = true, HourSalary = 100, WorkingHours = 10 };
+      gateway.GetEmployeeStats(Arg.Any<int>()).ReturnsForAnyArgs(employeeStats);
+      gateway.Connected.Returns(true);
+
+      var cust = new Customer(gateway, Substitute.For<ILogger>());
+
+      //Act
+      var actual = cust.CalculateWage(Arg.Any<int>());
+
+      //Assert
+      Assert.That(actual, Is.EqualTo(expectedWage).Within(0.1));
+   }
+}
 
 [TestFixture]
 public class CustomerTests
@@ -35,7 +60,7 @@ public class CustomerTests
       cust.CalculateWage(employeeId);
 
       //Assert
-      Assert.That(employeeId, Is.EqualTo(gateway.EmployeeId));
+      Assert.That(gateway.EmployeeId, Is.EqualTo(employeeId));
    }
 
    [Test]

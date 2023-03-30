@@ -14,6 +14,11 @@ public class Customer
    {
       EmployeeStats employeeStats = _gateway.GetEmployeeStats(employeeId);
 
+      //if (!_gateway.Connected)
+      //{
+      //   return 0;
+      //}
+
       decimal wage;
       if (employeeStats.PayHourly)
       {

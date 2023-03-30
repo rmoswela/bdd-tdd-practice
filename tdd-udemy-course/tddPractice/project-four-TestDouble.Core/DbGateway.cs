@@ -8,6 +8,8 @@ namespace project_four_TestDouble.Core
       {
          return new EmployeeStats();
       }
+
+      public bool Connected { get; }
    }
 }
 

@@ -19,6 +19,7 @@ namespace project_four_TestDouble.Tests
       {
          _employeeStats = es;
       }
+      public bool Connected { get; }
    }
 }
 
