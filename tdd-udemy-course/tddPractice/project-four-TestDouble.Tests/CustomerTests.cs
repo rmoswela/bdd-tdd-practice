@@ -1,4 +1,5 @@
 ﻿using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using project_four_TestDouble.Core;
 
 namespace project_four_TestDouble.Tests;
@@ -24,6 +25,21 @@ public class CustomerTestsWithMockingFramework
 
       //Assert
       Assert.That(actual, Is.EqualTo(expectedWage).Within(0.1));
+   }
+
+   [Test]
+   public void CalculateWage_ThrowsException_Return0()
+   {
+      //Arrage
+      var gateway = Substitute.For<IDbGateway>();
+      gateway.GetEmployeeStats(Arg.Any<int>()).Throws(new InvalidOperationException());
+      var cust = new Customer(gateway, Substitute.For<ILogger>());
+
+      //Act
+      decimal actual = cust.CalculateWage(Arg.Any<int>());
+
+      //Assert
+      Assert.That(actual, Is.EqualTo(0));
    }
 }
 

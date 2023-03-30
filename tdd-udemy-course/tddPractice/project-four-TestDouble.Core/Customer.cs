@@ -12,6 +12,16 @@ public class Customer
 
    public decimal CalculateWage(int employeeId)
    {
+      //EmployeeStats exceptionEmployee = null;
+      //try
+      //{
+      //   exceptionEmployee = _gateway.GetEmployeeStats(employeeId);
+      //}
+      //catch (Exception ex)
+      //{
+      //   return 0;
+      //}
+
       EmployeeStats employeeStats = _gateway.GetEmployeeStats(employeeId);
 
       //if (!_gateway.Connected)
