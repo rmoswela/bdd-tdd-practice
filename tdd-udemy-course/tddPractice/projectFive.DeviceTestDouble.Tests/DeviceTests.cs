@@ -23,4 +23,21 @@ public class DeviceTests
       // Assert
       protocolProvider.Received(3).Connect(Arg.Any<string>());
    }
+
+   [Test]
+   public void Find_DeviceOnCOM1Port_ReturnsCOM1()
+   {
+      // Arrange
+      var protocolProvider = Substitute.For<IProtocol>();
+      var device = new Device(protocolProvider);
+      const string portName = "COM1";
+
+      // Act
+      var task = device.Find();
+      protocolProvider.SearchingFinished += Raise.Event<EventHandler<DeviceSearchingEventArgs>>
+         (protocolProvider, new DeviceSearchingEventArgs(portName));
+
+      // Assert
+      Assert.That(task.Result, Is.EqualTo(portName));
+   }
 }
