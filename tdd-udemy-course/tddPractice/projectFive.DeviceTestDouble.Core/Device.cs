@@ -22,7 +22,7 @@ public class Device
    /// <returns></returns>
    public Task<string> Find()
    {
-      _protocol.SearchFinished += Protocol_SearchingFinished;
+      _protocol.SearchingFinished += Protocol_SearchingFinished;
 
       Task.Factory.StartNew(() => { _protocol.SearchForDevice(); });
 

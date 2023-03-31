@@ -3,7 +3,7 @@ namespace projectFive.DeviceTestDouble.Core
 {
   public interface IProtocol
   {
-      Action<object, DeviceSearchingEventArgs> SearchFinished { get; set; }
+      event EventHandler<DeviceSearchingEventArgs> SearchingFinished;
       bool Connect(string port);
       Device SearchForDevice();
   }

@@ -13,7 +13,7 @@ namespace projectFive.DeviceTestDouble.Core
          return new Device(new Protocol());
       }
 
-      public Action<object, DeviceSearchingEventArgs> SearchFinished { get; set; }
+      public event EventHandler<DeviceSearchingEventArgs>? SearchingFinished;
    }
 }
 
